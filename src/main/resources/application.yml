@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    config:
+      server:
+        sweagle:
+          scheme: http
+          host: 127.0.0.1
+          port: 8081
+          export-format: json
+          username: ilias_sweagle
+          password: testtest
+          token: Basic c3dlYWdsZS1jbGllbnQ6c3dlYWdsZVNlY3JldA==
+          metadataset: spring-config
+          parser: spring-demo
