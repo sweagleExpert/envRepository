@@ -7,8 +7,8 @@ spring:
           host: 127.0.0.1
           port: 8081
           export-format: json
-          username: ilias_sweagle
-          password: testtest
+          username: demo
+          password: demoOnly
           token: Basic c3dlYWdsZS1jbGllbnQ6c3dlYWdsZVNlY3JldA==
           metadataset: spring-config
           parser: spring-demo
