@@ -16,10 +16,13 @@
 
 package org.springframework.cloud.config.server.sweagle.environment;
 
-import java.util.*;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Properties;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +31,21 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.config.environment.Environment;
 import org.springframework.cloud.config.environment.PropertySource;
 import org.springframework.cloud.config.server.environment.EnvironmentRepository;
-
 import org.springframework.core.Ordered;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 
 /**
@@ -128,7 +135,10 @@ public class SweagleEnvironmentRepository implements EnvironmentRepository, Orde
 
 	@Override
 	public Environment findOne(String application, String profile, String label) {
-		String config = application;
+		final String token = getAccessToken();
+		final String config = application;
+
+		// TODO: example handing. Demo only:
 		if (StringUtils.isEmpty(label)) {
 			label = "master";
 		}
@@ -149,7 +159,7 @@ public class SweagleEnvironmentRepository implements EnvironmentRepository, Orde
 		Collections.reverse(envs);
 		for (String app : applications) {
 			for (String env : envs) {
-				String data = sweagle(app, env, label);
+				String data = sweagle(app, env, label, token);
 				if (data != null) {
 					// data is in json format of which, yaml is a superset, so parse
 					final YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
@@ -183,14 +193,14 @@ public class SweagleEnvironmentRepository implements EnvironmentRepository, Orde
 	 *
 	 * @return a JSON string holding the app's properties
 	 */
-	private String sweagle(String app, String env, String label) {
+	private String sweagle(String app, String env, String label, String token) {
 
-		// todo: temporary usage. demo only:
+		// TODO: example handing. Demo only:
 		final String url = String.format("%s://%s:%s/api/v1/tenant/metadata-parser/parse?mds=%s&parser=%s&args=%s&format=%s",
 						this.scheme, this.host, this.port, metadataset, parser, env + "," + app, exportFormat);
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "bearer " + getAccessToken()); // todo
+		headers.add("Authorization", "bearer " + token);
 		try {
 			ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(headers), String.class);
 
@@ -219,7 +229,8 @@ public class SweagleEnvironmentRepository implements EnvironmentRepository, Orde
 		body.add("password", password);
 
 		HttpEntity<Object> httpEntity = new HttpEntity<>(body, httpHeaders);
-		ResponseEntity<JsonNode> accessTokenNode = restTemplate.exchange(url, HttpMethod.POST, httpEntity, JsonNode.class); // todo: error handling
+		// TODO: example handing. Demo only:
+		ResponseEntity<JsonNode> accessTokenNode = restTemplate.exchange(url, HttpMethod.POST, httpEntity, JsonNode.class);
 
 		return accessTokenNode.getBody().get("access_token").asText();
 	}
