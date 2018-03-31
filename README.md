@@ -3,6 +3,7 @@
 Spring Cloud Config Server SWEAGLE enables seamless integration of the regular Spring Cloud Config Server with SWEAGLE to manage external properties for applications across all environments.
 
 # Quick Start
+
 Configure pom.xml, like this:
 ```xml
 <dependencies>
@@ -27,8 +28,10 @@ public class Application {
 }
 ```
 
-TBD...
+# Disclaimer
+
+The current version is a SNAPSHOT for PoC and demo purposes only.
 
 # References
-[spring-cloud-config](https://github.com/spring-cloud/spring-cloud-config)
-[sweagle](https://www.sweagle.com/)
+- [spring-cloud-config](https://github.com/spring-cloud/spring-cloud-config)
+- [SWEAGLE](https://www.sweagle.com/)
