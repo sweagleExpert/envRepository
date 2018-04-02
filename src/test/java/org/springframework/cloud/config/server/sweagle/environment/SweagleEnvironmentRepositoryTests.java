@@ -16,25 +16,12 @@
 
 package org.springframework.cloud.config.server.sweagle.environment;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration;
-import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
-import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.cloud.config.environment.Environment;
-import org.springframework.cloud.config.server.environment.EnvironmentRepository;
 import org.springframework.cloud.config.server.sweagle.EnableSweagleConfigServer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 public class SweagleEnvironmentRepositoryTests {
 
@@ -56,9 +43,7 @@ public class SweagleEnvironmentRepositoryTests {
 	public void defaultRepo() {
 		// Prepare context
 
-
 		// Prepare test
-
 
 		// Test
 	}
@@ -68,7 +53,6 @@ public class SweagleEnvironmentRepositoryTests {
 		// Prepare context
 
 		// Prepare test
-
 
 		// Test
 	}
@@ -84,11 +68,6 @@ public class SweagleEnvironmentRepositoryTests {
 
 	@Configuration
 	@EnableSweagleConfigServer
-	@Import({
-		PropertyPlaceholderAutoConfiguration.class,
-		MongoAutoConfiguration.class,
-		MongoDataAutoConfiguration.class
-	})
 	protected static class TestConfiguration {
 
 	}
