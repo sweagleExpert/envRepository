@@ -2,6 +2,11 @@
 
 Spring Cloud Config Server SWEAGLE enables seamless integration of the regular Spring Cloud Config Server with SWEAGLE to manage external properties for applications across all environments.
 
+# Disclaimer
+
+The current version is a SNAPSHOT for PoC and demo purposes only. Manual action is needed in order to add this artifact to your local Maven repository.
+Stay tuned for updates since uploading the artifact to Maven Central will follow-up.
+
 # Quick Start
 
 In order to use Sweagle as your main configuration repository, add the following dependency in your proper pom.xml:
