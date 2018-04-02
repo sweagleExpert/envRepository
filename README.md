@@ -37,4 +37,4 @@ Adapt your configuration server's application properties according to your Sweag
 
 # References
 [spring-cloud-config](https://github.com/spring-cloud/spring-cloud-config)
-[sweagle](https://www.sweagle.com/)
+[SWEAGLE](https://www.sweagle.com/)
