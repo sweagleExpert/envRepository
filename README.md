@@ -5,7 +5,7 @@ Spring Cloud Config Server SWEAGLE enables seamless integration of the regular S
 # Disclaimer
 
 The current version is a SNAPSHOT for PoC and demo purposes only. Manual action is needed in order to add this artifact to your local Maven repository.
-Stay tuned for updates since uploading the artifact to Maven Central will follow-up.
+Stay tuned for updates since uploading the artifact to [Maven Central](https://mvnrepository.com/repos/central) will follow-up.
 
 # Quick Start
 
