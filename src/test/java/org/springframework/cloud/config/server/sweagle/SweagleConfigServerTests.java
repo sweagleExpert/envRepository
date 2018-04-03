@@ -19,6 +19,7 @@ package org.springframework.cloud.config.server.sweagle;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.SpringApplication;
@@ -40,6 +41,7 @@ public class SweagleConfigServerTests {
 	private int port;
 
 	@Test
+	@Ignore
 	public void server() {
 
 		Environment environment = new TestRestTemplate().getForObject("http://localhost:" + port + "/testapp/default", Environment.class);

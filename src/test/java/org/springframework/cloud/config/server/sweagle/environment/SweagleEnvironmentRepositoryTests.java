@@ -18,11 +18,13 @@ package org.springframework.cloud.config.server.sweagle.environment;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.cloud.config.server.sweagle.EnableSweagleConfigServer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Configuration;
 
+@Ignore
 public class SweagleEnvironmentRepositoryTests {
 
 	private ConfigurableApplicationContext context;
