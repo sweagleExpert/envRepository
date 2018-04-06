@@ -195,7 +195,7 @@ public class SweagleEnvironmentRepository implements EnvironmentRepository, Orde
 	 */
 	private String sweagle(String app, String env, String label, String token) {
 
-		// TODO: example handing. Demo only:
+		// TODO: to be replaced with OAuth2RestTemplate
 		final String url = String.format("%s://%s:%s/api/v1/tenant/metadata-parser/parse?mds=%s&parser=%s&args=%s&format=%s",
 						this.scheme, this.host, this.port, metadataset, parser, env + "," + app, exportFormat);
 
