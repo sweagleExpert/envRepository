@@ -125,7 +125,7 @@ public class SweagleEnvironmentRepository implements EnvironmentRepository, Orde
 
 	@Override
 	public Environment findOne(String application, String profile, String label) {
-		//final String token = token;
+		//final String token = getAccessToken();
 		final String config = application;
 
 		// TODO: example handing. Demo only:
