@@ -3,12 +3,10 @@ spring:
     config:
       server:
         sweagle:
-          scheme: http
-          host: 127.0.0.1
-          port: 8081
+          scheme: https
+          host: testing.sweagle.com
+          port: 443
           export-format: json
-          username: demo
-          password: demoOnly
-          token: Basic c3dlYWdsZS1jbGllbnQ6c3dlYWdsZVNlY3JldA==
-          metadataset: spring-config
+          token: XXX
+          configdataset: spring-config
           parser: spring-demo
