@@ -52,6 +52,8 @@ import com.fasterxml.jackson.databind.JsonNode;
  * Implementation of {@link EnvironmentRepository} that is backed by Sweagle.
  *
  * @author Kyriakos Mandalas
+ * @maintainer Dimitris Finas
+ *
  */
 @ConfigurationProperties("spring.cloud.config.server.sweagle")
 @Validated
@@ -62,28 +64,24 @@ public class SweagleEnvironmentRepository implements EnvironmentRepository, Orde
 	/** Properties formatting style. Defaults to JSON */
 	private String exportFormat = "JSON";
 
-	/** Protocol scheme. Defaults to http. */
-	private String scheme = "http";
+	/** Protocol scheme. Defaults to https. */
+	private String scheme = "https";
 
-	/** Sweagle host. Defaults to 127.0.0.1. */
+	/** Sweagle host. Defaults to testing.sweagle.com. */
 	@NotEmpty
-	private String host = "127.0.0.1";
+	private String host = "testing.sweagle.com";
 
-	/** Sweagle port. Defaults to 8081. */
+	/** Sweagle port. Defaults to 443. */
 	@Range(min = 1, max = 65535)
-	private int port = 8081;
+	private int port = 443;
 
 	/** Authorization credentials */
 	@NotEmpty
-	private String username;
-	@NotEmpty
-	private String password;
-	@NotEmpty
 	private String token;
 
-	/** Sweagle metadata-set */
+	/** Sweagle configdata-set */
 	@NotEmpty
-	private String metadataset;
+	private String configdataset;
 
 	/** Sweagle parser (exporter) */
 	@NotEmpty
@@ -113,20 +111,12 @@ public class SweagleEnvironmentRepository implements EnvironmentRepository, Orde
 		this.port = port;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public void setToken(String token) {
 		this.token = token;
 	}
 
-	public void setMetadataset(String metadataset) {
-		this.metadataset = metadataset;
+	public void setconfigdataset(String configdataset) {
+		this.configdataset = configdataset;
 	}
 
 	public void setParser(String parser) {
@@ -135,7 +125,7 @@ public class SweagleEnvironmentRepository implements EnvironmentRepository, Orde
 
 	@Override
 	public Environment findOne(String application, String profile, String label) {
-		final String token = getAccessToken();
+		//final String token = token;
 		final String config = application;
 
 		// TODO: example handing. Demo only:
@@ -150,9 +140,6 @@ public class SweagleEnvironmentRepository implements EnvironmentRepository, Orde
 		}
 		String[] profiles = StringUtils.commaDelimitedListToStringArray(profile);
 		Environment environment = new Environment(application, profiles, label, null, null);
-//		if (!config.startsWith("application")) {
-//			config = "application," + config;
-//		}
 		List<String> applications = new ArrayList<String>(new LinkedHashSet<>(Arrays.asList(StringUtils.commaDelimitedListToStringArray(config))));
 		List<String> envs = new ArrayList<String>(new LinkedHashSet<>(Arrays.asList(profiles)));
 		Collections.reverse(applications);
@@ -195,9 +182,8 @@ public class SweagleEnvironmentRepository implements EnvironmentRepository, Orde
 	 */
 	private String sweagle(String app, String env, String label, String token) {
 
-		// TODO: to be replaced with OAuth2RestTemplate
 		final String url = String.format("%s://%s:%s/api/v1/tenant/metadata-parser/parse?mds=%s&parser=%s&args=%s&format=%s",
-						this.scheme, this.host, this.port, metadataset, parser, env + "," + app, exportFormat);
+						this.scheme, this.host, this.port, configdataset, parser, env + "," + app, exportFormat);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "bearer " + token);
@@ -218,6 +204,7 @@ public class SweagleEnvironmentRepository implements EnvironmentRepository, Orde
 		return null;
 	}
 
+	// no more used, but kept in case customer prefer auth. instead of token strategy
 	private String getAccessToken() {
 		final String url = String.format("http://%s:%s/oauth/token", this.host, this.port);
 		final HttpHeaders httpHeaders = new HttpHeaders();
